@@ -260,12 +260,12 @@ class JaideGUI(tk.Tk):
                                            command=lambda:
                                            self.open_file(self.option_entry),
                                            takefocus=0)
-        self.scp_destination_button = tk.Button(self.options_frame,
-                                                text="Local Destination",
-                                                command=lambda: self.open_file(
-                                                    self.scp_destination_entry),
-                                                takefocus=0)
-        self.scp_destination_entry = JaideEntry(self.options_frame)
+        self.scp_dest_button = tk.Button(self.options_frame,
+                                         text="Local Destination",
+                                         command=lambda: self.open_file(
+                                            self.scp_dest_entry),
+                                         takefocus=0)
+        self.scp_dest_entry = JaideEntry(self.options_frame)
 
         # ## COMMIT OPTIONS
         self.set_list_button = tk.Button(self.options_frame,
@@ -453,7 +453,7 @@ class JaideGUI(tk.Tk):
             "SingleOrMultipleFiles": self.wtf_radiobuttons,
             "Option": self.option_value,
             "FirstArgument": self.option_entry,
-            "SCPDest": self.scp_destination_entry,
+            "SCPDest": self.scp_dest_entry,
             "SCPDirection": self.scp_direction_value,
             "CommitCheck": self.commit_check_button,
             "CommitConfirmed": self.commit_confirmed_button,
@@ -534,7 +534,7 @@ class JaideGUI(tk.Tk):
                                    at_time,
                                    self.commit_blank.get()],
                 "SCP Files": [self.option_entry.get(),
-                              self.scp_destination_entry.get(), False],
+                              self.scp_dest_entry.get(), False],
                 "Shell Command(s)": [self.option_entry.get().strip()]
             }
 
@@ -913,8 +913,8 @@ class JaideGUI(tk.Tk):
         self.option_entry.grid_forget()
         self.set_list_button.grid_forget()
         self.scp_source_button.grid_forget()
-        self.scp_destination_entry.grid_forget()
-        self.scp_destination_button.grid_forget()
+        self.scp_dest_entry.grid_forget()
+        self.scp_dest_button.grid_forget()
         self.scp_direction_menu.grid_forget()
         self.spacer_label.grid_forget()
         self.diff_config_menu.grid_forget()
@@ -937,9 +937,8 @@ class JaideGUI(tk.Tk):
                                          row=0, sticky="NW")
             self.option_entry.grid(column=0, row=1, sticky="NW")
             self.scp_source_button.grid(column=1, row=1, sticky="NW", padx=2)
-            self.scp_destination_entry.grid(column=2, row=1, sticky="NW")
-            self.scp_destination_button.grid(column=3, row=1, sticky="NW",
-                                             padx=2)
+            self.scp_dest_entry.grid(column=2, row=1, sticky="NW")
+            self.scp_dest_button.grid(column=3, row=1, sticky="NW", padx=2)
 
         # Any option that requires a single text arg
         elif opt in self.yes_options:
@@ -1123,7 +1122,7 @@ class JaideGUI(tk.Tk):
         self.wtf_checkbox.deselect()
         self.option_entry.delete(0, tk.END)
         self.option_entry.delete(0, tk.END)
-        self.scp_destination_entry.delete(0, tk.END)
+        self.scp_dest_entry.delete(0, tk.END)
         self.commit_comment_entry.delete(0, tk.END)
         self.commit_at_entry.delete(0, tk.END)
         self.commit_check_button.deselect()
