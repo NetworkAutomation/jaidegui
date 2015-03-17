@@ -502,8 +502,8 @@ class JaideGUI(tk.Tk):
             out_fmt = 'xml' if self.format_box.get() else 'text'
 
             # some functions need to know if we're running against >1 device
-            # multi = True if (len([ip for ip in
-            #                  clean_lines(self.ip_entry.get())]) > 1) else False
+            multi = True if (len([ip for ip in
+                             clean_lines(self.ip_entry.get())]) > 1) else False
 
             # Looks up the selected option from dropdown against the conversion
             # dictionary to get the right Jaide function to call
@@ -534,7 +534,7 @@ class JaideGUI(tk.Tk):
                                    at_time,
                                    self.commit_blank.get()],
                 "SCP Files": [self.option_entry.get(),
-                              self.scp_dest_entry.get(), False],
+                              self.scp_dest_entry.get(), False, multi],
                 "Shell Command(s)": [self.option_entry.get().strip()]
             }
 
@@ -883,6 +883,7 @@ class JaideGUI(tk.Tk):
             finally:
                 input_file.close()
 
+    # TODO: Doesn't appear to be working sometimes (known for scp'ing from multiple devices.)
     def stop_script(self):
         """ Kill the active running script.
 
