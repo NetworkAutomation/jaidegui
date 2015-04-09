@@ -15,7 +15,6 @@ For more information on the underlying jaide utility, visit:
     https://github.com/NetworkAutomation/jaide
 """
 # ## Processing and queuing
-import subprocess  # Used for opening help file with the browser.
 import Queue
 # In terms of JGUI, we use multiprocessing to enable freeze_support.
 # The worker_thread subpackage uses multiprocessing further to run
@@ -52,6 +51,7 @@ except ImportError as e:
     raise e
 
 
+# TODO: add in `compare` command to GUI
 # TODO: scp in gui always flags multi?
 # TODO: make Script output non-editable, but still selectable for copying.  - Doesn't seem feasible without completely re-writing textArea widget.
 # TODO: add headers to the sections of the GUI / add coloring or styling.  - Attempted, couldn't get menuoption to work, or checkboxes on mac.
