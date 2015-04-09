@@ -1,10 +1,25 @@
-Working with Jaide GUI
-=================
+Basic Jaide GUI Usage  
+=====================  
+
 There are two ways to use the Jaide GUI. The easiest is through the compiled applications for [Windows](https://github.com/geoffrhodes/jaide-windows-compile) and [Mac](https://github.com/geoffrhodes/jaide-osx-compile). By using the compiled application, you don't need to worry about any python requirements or ever touch the command line. Simply load the application and you're ready to start.  
 
-The other manner is by using the command line to execute `python jgui.py` from the folder where `jgui.py`, `worker_thread.py`, and `jaide.py` exist. Since this uses your native python environment, you must initially obtain all pre-requisite modules for proper execution, just as if you were running jaide.py from the command line. All information about the prerequisite modules can be found in the README file. 
+The other manner is by using the command line to follow the [pip installation instructions](TODO: PIP INSTALL LINK), and then use the `jaidegui` command in any terminal window.
 
-### Jaide GUI Unique functions  
+## Jaide commands  
+
+| Command | Description |  
+| ------- | ----------- |  
+| Compare | Run a 'show pipe compare' for a list of set commands. **[1](#notes)** |  
+| Device Info | Get basic device information, such as version, model, hostname, serial number, and uptime. |  
+| Diff Config | Compare the configuration differences between two devices. |  
+| Health Check | Get alarm, CPU, RAM, and temperature status. |  
+| Interface Errors | Get any interface errors from any interface. |  
+| Operational Command(s) | Send operational command(s) and display the output. **[1](#notes)** Pipes are supported, as well as xpath filtering **[2](#notes).** |  
+| SCP Files | Copy files to or from the device(s). |  
+| Set Command(s)  | Execute a commit operation. **[1](#notes)** Several options exist for further customization, such as confirming, commit check, comments, etc. |  
+| Shell Command(s) | Send shell command(s) and display the output. **[1](#notes)** |  
+
+## Unique functions to the GUI
 
 #### Templates  
 
@@ -28,3 +43,7 @@ Any of the following keyboard shortcuts can be used to manipulate the GUI:
 | Ctrl+W | Clear Output | Clears the output area of all text |  
 | Ctrl+R | Run Script | Executes the specified options and runs the script |  
 | Ctrl+Q | Quit Jaide GUI | Exits the program |  
+
+### Notes  
+* 1) There are multiple ways to specify these pieces of information (Hostnames/IPs, op commands, shell commands, set commands). It can be a single instance, multiple in a quoted comma-separated list, or a filepath pointing to a file with one entry on each line. More information is in their respective detailed docs.  
+* 2) Pipes are very powerful, and should be learned for advanced command usage in [Junos natively](http://www.juniper.net/techpubs/en_US/junos14.2/topics/concept/junos-cli-pipe-filter-functions-overview.html). Xpath filtering is an added feature of Jaide, and can be learned of in our [operational command guide](#TODO: operational command guide link).  

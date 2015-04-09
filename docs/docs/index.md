@@ -1,17 +1,14 @@
-# Welcome to MkDocs
+Junos Aide (Jaide) GUI  
+===================================  
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+## Quick Info  
+Contributors: [Geoff Rhodes](https://github.com/geoffrhodes) and [Nathan Printz](https://github.com/nprintz)  
+[Source Repo](https://github.com/NetworkAutomation/jaidegui)  
+[Underlying jaide package](https://github.com/NetworkAutomation/jaide)  
+[Pypi Page](TODO: link to pypi package)  
+[Read The Docs](TODO: link to read the docs home page)  
+[OSX/Windows Compiled Versions](https://github.com/NetworkAutomation/jaidegui/releases/latest)  
 
-## Commands
+## About:  
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+More information about us can be found on the [about page](about.md).  
