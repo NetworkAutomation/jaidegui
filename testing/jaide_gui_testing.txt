@@ -1,0 +1,13 @@
+#####################
+# GUI specific tests, tested in both windows and mac compiled versions:
+
+# Setting defaults (and ensuring they load)
+# save a template
+# load a template
+# toggle options
+# clear output
+# save output
+# keyboard shortcuts
+# switching to and from each of the options, to ensure there aren't any weird visual artefacts
+
+# General usage should also be tested for different types of commands, writing output to one file vs many files, etc.
