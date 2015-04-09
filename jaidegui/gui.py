@@ -703,30 +703,6 @@ class JaideGUI(tk.Tk):
             webb.open('https://github.com/NetworkAutomation/jaidegui')
         except webb.Error:
             pass
-        # # Grab the directory where the script is running.
-        # readme = os.path.normpath(module_path() + '/README.html')
-        # # Determine our OS and open the readme.
-        # if sys.platform.startswith('darwin'):
-        #     if os.path.isfile(readme):
-        #         subprocess.call(('open', readme))
-        #     else:
-        #         pass
-        # elif os.name == 'nt':
-        #     if os.path.isfile(readme):
-        #         os.startfile(readme)
-        #     else:
-        #         try:
-        #             webb.open('https://github.com/NetworkAutomation/jaidegui')
-        #         except webb.Error:
-        #             pass
-        # elif os.name == 'posix':
-        #     if os.path.isfile(readme):
-        #         subprocess.call(('xdg-open', readme))
-        #     else:
-        #         try:
-        #             webb.open('https://github.com/NetworkAutomation/jaidegui')
-        #         except webb.Error:
-        #             pass
 
     def show_examples(self):
         """ Open the example documentation page. """
@@ -736,39 +712,6 @@ class JaideGUI(tk.Tk):
                       'jaide/tree/master/examples')
         except webb.Error:
             pass
-        # # Grab the directory that the script is running from.
-        # examples = module_path()
-        # # Determine our OS, attach readme.html to the path, and open that file.
-        # if sys.platform.startswith('darwin'):
-        #     examples += "/examples/"
-        #     if os.path.isdir(examples):
-        #         subprocess.call(('open', examples))
-        #     else:
-        #         try:
-        #             webb.open('https://github.com/NetworkAutomation/'
-        #                       'jaide/tree/master/examples')
-        #         except webb.Error:
-        #             pass
-        # elif os.name == 'nt':
-        #     examples += "\\examples\\"
-        #     if os.path.isdir(examples):
-        #         os.startfile(examples)
-        #     else:
-        #         try:
-        #             webb.open('https://github.com/NetworkAutomation/'
-        #                       'jaide/tree/master/examples')
-        #         except webb.Error:
-        #             pass
-        # elif os.name == 'posix':
-        #     examples += "/examples/"
-        #     if os.path.isdir(examples):
-        #         subprocess.call(('xdg-open', examples))
-        #     else:
-        #         try:
-        #             webb.open('https://github.com/NetworkAutomation/'
-        #                       'jaide/tree/master/examples')
-        #         except webb.Error:
-        #             pass
 
     def write_to_output_area(self, output):
         """ Append string to output_area, and scroll to the bottom.
