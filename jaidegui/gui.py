@@ -1,12 +1,18 @@
-""" The GUI wrapper for the jaide_cli.py CLI script.
+""" The GUI wrapper for the jaide CLI utility.
 
-This python file is used to spawn the GUI that wraps around jaide.py,
+This python file is used to spawn the GUI that wraps around jaide,
 providing ease of use for those that don't want to use the command line.
-This Class is part of the jaide/jgui project.
+
+This Class is part of the jaidegui project.
 It is free software for use in manipulating junos devices. More information
 can be found at the github page found here:
 
-   https://github.com/NetworkAutomation/jaide
+    https://github.com/NetworkAutomation/jaidegui
+
+
+For more information on the underlying jaide utility, visit:
+
+    https://github.com/NetworkAutomation/jaide
 """
 # ## Processing and queuing
 import subprocess  # Used for opening help file with the browser.
@@ -53,13 +59,13 @@ except ImportError as e:
 # TODO: check and make sure writing to multiple files works on windows and compiled versions.
 class JaideGUI(tk.Tk):
 
-    """ The GUI wrapper for the jaide_cli.py CLI tool.
+    """ The GUI wrapper for the jaide CLI tool.
 
     The JaideGUI class inherits the properties of the Tkinter.Tk class. This
     class encapsulates the entire methodology for creating the visual
     representation seen by the user. Some functionality is enhanced with the
     use of other classes that are imported and used, including WorkerThread
-    (for running the jaide.py script and handling output gathering) and
+    (for running the jaide CLI tool and handling output gathering) and
     AutoScrollbar (for putting scrollbars on the output_area text entry widget)
     """
 
@@ -477,14 +483,14 @@ class JaideGUI(tk.Tk):
         Purpose: This function is called when the user clicks on the 'Run
                | Script' button. It inserts output letting the user know the
                | script has started, and spawns a subprocess running a
-               | WorkerThread instance. It also builds and presents the user
-               | with the jaide.py commmand,  and modifies the different
+               | WorkerThread instance. It also modifies the different
                | buttons availability, now that the script has started.
 
         @param event: Any command that tkinter binds a keyboard shortcut to
                     | will receive the event parameter. It is a description of
                     | the keyboard shortcut that generated the event.
         @type event: Tkinter.event object
+
         @returns: None
         """
         # Ensure the input is valid.
@@ -629,7 +635,7 @@ class JaideGUI(tk.Tk):
                                   " when selecting \"Operational Command(s)\","
                                   " a command string must be typed into the "
                                   "entry box.")
-        # if doing commit at, check that the 
+        # if doing commit at, check that the datetime format is valid.
         elif ((self.option_value.get() == 'Set Command(s)' and
               self.commit_at.get()) and (self.commit_at_entry.get() == "" or
               (re.match(r'([0-2]\d)(:[0-5]\d){1,2}',
@@ -673,90 +679,96 @@ class JaideGUI(tk.Tk):
         aboutInfo = tk.Toplevel()
         aboutInfoLabel = tk.Label(aboutInfo, padx=50, pady=50,
                                   text="The Jaide GUI Application is a GUI "
-                                  "wrapper for the jaide.py script.\nVersion "
+                                  "wrapper for the jaide CLI tool.\nVersion "
                                   "1.1.0\n\rContributors:\n Geoff Rhodes "
                                   "(https://github.com/geoffrhodes) and Nathan"
                                   " Printz (https://github.com/nprintz)\n\r"
                                   "More information about Jaide and the Jaide "
                                   "GUI can be found at https://github.com"
-                                  "/NetworkAutomation/jaide-gui"
+                                  "/NetworkAutomation/jaidegui"
                                   "\n\rThe compiled versions for Windows or "
                                   "Mac can be found at:\n"
                                   "https://github.com/NetworkAutomation/"
-                                  "jaide-gui/releases/latest")
+                                  "jaidegui/releases/latest")
         aboutInfoLabel.pack()
 
     def show_help(self):
         """ Show the help file or webpage.
 
-        Purpose: This is called when the user selects the 'Help Text' menubar
-               | option. It opens the README.html file in their default
-               | browser. If the file doesn't exist it opens the github
-               | readme page instead.
+        Purpose: This is called when the user selects the 'Help' menubar
+               | option. It opens the readthedocs.org page.
         """
-        # Grab the directory where the script is running.
-        readme = os.path.normpath(module_path() + '/README.html')
-        # Determine our OS and open the readme.
-        if sys.platform.startswith('darwin'):
-            if os.path.isfile(readme):
-                subprocess.call(('open', readme))
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/jaide-gui')
-                except webb.Error:
-                    pass
-        elif os.name == 'nt':
-            if os.path.isfile(readme):
-                os.startfile(readme)
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/jaide-gui')
-                except webb.Error:
-                    pass
-        elif os.name == 'posix':
-            if os.path.isfile(readme):
-                subprocess.call(('xdg-open', readme))
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/jaide-gui')
-                except webb.Error:
-                    pass
+        # TODO: READTHEDOCS LINK INSTEAD
+        try:
+            webb.open('https://github.com/NetworkAutomation/jaidegui')
+        except webb.Error:
+            pass
+        # # Grab the directory where the script is running.
+        # readme = os.path.normpath(module_path() + '/README.html')
+        # # Determine our OS and open the readme.
+        # if sys.platform.startswith('darwin'):
+        #     if os.path.isfile(readme):
+        #         subprocess.call(('open', readme))
+        #     else:
+        #         pass
+        # elif os.name == 'nt':
+        #     if os.path.isfile(readme):
+        #         os.startfile(readme)
+        #     else:
+        #         try:
+        #             webb.open('https://github.com/NetworkAutomation/jaidegui')
+        #         except webb.Error:
+        #             pass
+        # elif os.name == 'posix':
+        #     if os.path.isfile(readme):
+        #         subprocess.call(('xdg-open', readme))
+        #     else:
+        #         try:
+        #             webb.open('https://github.com/NetworkAutomation/jaidegui')
+        #         except webb.Error:
+        #             pass
 
     def show_examples(self):
-        """ Open the example folder or github page. """
-        # Grab the directory that the script is running from.
-        examples = module_path()
-        # Determine our OS, attach readme.html to the path, and open that file.
-        if sys.platform.startswith('darwin'):
-            examples += "/examples/"
-            if os.path.isdir(examples):
-                subprocess.call(('open', examples))
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/'
-                              'jaide/tree/master/examples')
-                except webb.Error:
-                    pass
-        elif os.name == 'nt':
-            examples += "\\examples\\"
-            if os.path.isdir(examples):
-                os.startfile(examples)
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/'
-                              'jaide/tree/master/examples')
-                except webb.Error:
-                    pass
-        elif os.name == 'posix':
-            examples += "/examples/"
-            if os.path.isdir(examples):
-                subprocess.call(('xdg-open', examples))
-            else:
-                try:
-                    webb.open('https://github.com/NetworkAutomation/'
-                              'jaide/tree/master/examples')
-                except webb.Error:
-                    pass
+        """ Open the example documentation page. """
+        # TODO: READTHEDOCS link instead.
+        try:
+            webb.open('https://github.com/NetworkAutomation/'
+                      'jaide/tree/master/examples')
+        except webb.Error:
+            pass
+        # # Grab the directory that the script is running from.
+        # examples = module_path()
+        # # Determine our OS, attach readme.html to the path, and open that file.
+        # if sys.platform.startswith('darwin'):
+        #     examples += "/examples/"
+        #     if os.path.isdir(examples):
+        #         subprocess.call(('open', examples))
+        #     else:
+        #         try:
+        #             webb.open('https://github.com/NetworkAutomation/'
+        #                       'jaide/tree/master/examples')
+        #         except webb.Error:
+        #             pass
+        # elif os.name == 'nt':
+        #     examples += "\\examples\\"
+        #     if os.path.isdir(examples):
+        #         os.startfile(examples)
+        #     else:
+        #         try:
+        #             webb.open('https://github.com/NetworkAutomation/'
+        #                       'jaide/tree/master/examples')
+        #         except webb.Error:
+        #             pass
+        # elif os.name == 'posix':
+        #     examples += "/examples/"
+        #     if os.path.isdir(examples):
+        #         subprocess.call(('xdg-open', examples))
+        #     else:
+        #         try:
+        #             webb.open('https://github.com/NetworkAutomation/'
+        #                       'jaide/tree/master/examples')
+        #         except webb.Error:
+        #             pass
 
     def write_to_output_area(self, output):
         """ Append string to output_area, and scroll to the bottom.
@@ -804,6 +816,7 @@ class JaideGUI(tk.Tk):
                        | "template". This is used to notify the user what type
                        | of file failed to open in case of a problem.
         @type filetype: str or unicode
+
         @returns: None
         """
         try:
@@ -854,6 +867,7 @@ class JaideGUI(tk.Tk):
                            | "template". This is used to notify the user what
                            | type of file failed to load in case of a problem.
             @type filetype: str or unicode
+
             @returns: None
         """
         try:
@@ -889,16 +903,22 @@ class JaideGUI(tk.Tk):
         """ Kill the active running script.
 
         Purpose: Called to kill the subprocess 'thread' which is actually
-               | running the jaide_cli.py script. This is called when the user
+               | running the jaide command. This is called when the user
                | clicks on the Stop Script button.
 
             @returns: None
         """
-        self.thread.kill_proc()
         self.write_to_output_area("\n****** Attempting to stop process ******")
+        self.thread.kill_proc()
 
     def opt_select(self, opt):
-        """ Purpose: Show and hide options fields drop down item is selected.
+        """ Show and hide options fields when a drop down item is selected.
+
+        Purpose: This method looks at what option they have chosen from the
+               | drop down menu, and show the appropriate fields for the user
+               | to fill out for that option. This is the callback function for
+               | the Pmw.optionMenu, and this is the reason we use PMW, so that
+               | we can point the drop down menu at this callback function.
 
         @param opt: The name of the option chosen by the user. The PMWmenu
                   | object passes this automatically when the opt_select
@@ -995,7 +1015,7 @@ class JaideGUI(tk.Tk):
             entry_object.insert(0, return_file)
 
     def open_wtf(self):
-        """ Find and insert a filepath into the write_to_file object. """
+        """ Ask for and insert a filepath into the write_to_file object. """
         return_file = tkFileDialog.asksaveasfilename()
         if return_file:
             self.wtf_entry.delete(0, tk.END)
@@ -1039,8 +1059,9 @@ class JaideGUI(tk.Tk):
                | the commit confirmed minutes entry as necessary.
 
         @param check_type: A string identifier stating which commit option
-                         | is being clicked. We are expecting one of three
-                         | options: 'blank', 'check', or 'confirmed'.
+                         | is being clicked. We are expecting one of these
+                         | options: 'blank', 'check', 'at', 'comment',
+                         | 'synchronize', or 'confirmed'.
         @type check_type: str
 
         @returns: None
@@ -1080,7 +1101,7 @@ class JaideGUI(tk.Tk):
         self.output_area.delete(1.0, tk.END)
 
     def save_output(self):
-        """ Save the output area text to a file. """
+        """ Save the text in the output area to a file. """
         return_file = tkFileDialog.asksaveasfilename()
         # If no file is chosen, do not try to open it.
         if return_file:
