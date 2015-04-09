@@ -1,20 +1,19 @@
 """ WorkerThread Class.
 
 Purpose: This class takes command and a queue during construction, runs the
-command with the run_jaide() method, either in a multiple processing pool for
-multiple devices, or in one call to run_jaide() if we are running against a
-single device. Any output is written to the jaidegui.gui.outputArea and
-potentially also to an output file, if the user specified so. It also provides
-functionality for ending the subprocess before completion.
+command with the run_jaide() function, in a mp pool for each ip. Any output is
+written to the jaidegui.gui.outputArea and potentially also to an output file,
+if the user specified so. It also provides functionality for ending the
+subprocess before completion.
 
 The class inherits the class threading.Thread, with the purpose of overwriting
 the run() method of the standard Thread class.
 
-This Class is part of the jaide/jgui project.
+This Class is part of the jaidegui project.
 It is free software for use in manipulating junos devices. More information can
 be found at the github page here:
 
-    https://github.com/NetworkAutomation/jaide
+    https://github.com/NetworkAutomation/jaidegui
 """
 
 import threading
@@ -36,25 +35,25 @@ class WorkerThread(threading.Thread):
         """ Initialize the WorkerThread object.
 
         Purpose: The initialize function for the WorkerThread Class. The
-               | parameters are all used to pass information down to run_jaide
-               | for executing the script properly. Only the ip and
-               | write_to_file parameters are tested against or used within
-               | WorkerThread.
+               | parameters are all used to pass information down to
+               | run_jaide() or executing the script properly. Only the ip,
+               | wtf_style, and write_to_file parameters are tested against or
+               | used within WorkerThread. The rest are simply passed along to
+               | run_jaide().
 
         @param argsToPass: The list of all the arguments that need to be passed
                          | through run_jaide() for proper script execution.
         @type argsToPass: list
         @param sess_timeout: The session timeout value in seconds for the
-                           | Jaide object session. The default value is set to
-                           | 300 seconds.
+                           | Jaide object session.
         @type sess_timeout: int
         @param conn_timeout: the connection timeout to use when initally
-                       | connecting to the device. Defaults to 5 seconds.
+                       | connecting to the device.
         @type conn_timeout: int
         @param port: the port number on which to connect to the device.
         @type port: int
-        @param command: The name of the function within jaide.py that we will
-                      | be executing to accomplish the goal of the user.
+        @param command: The name of the function within jaide.core.py that we
+                      | will be executing to accomplish the goal of the user.
                       | An example of this being deciphered and used is within
                       | the class jaidegui.gui.__init__() method.
         @type command: function
@@ -79,8 +78,13 @@ class WorkerThread(threading.Thread):
                             | to a file), or a filepath pointing to the desired
                             | output file for the script output.
                             | jaidegui.gui.run() will determine if we're
-                            | writing to a file or not.
+                            | writing to a file or not and passes in the
+                            | appropriate value.
         @type write_to_file: str
+        @param wtf_style: How to dump the output, either to a single file or to
+                        | multiple, one for each host. Possible values are:
+                        | ['s', 'single', 'm', 'multiple']
+        @type wtf_style: str
 
         @returns: None
         """
@@ -117,7 +121,7 @@ class WorkerThread(threading.Thread):
         @param results: the results that will be dropped into the output area,
                       | and possibly also the output file, if write_to_file is
                       | true/checked.
-        @type results: tuple, with the output string in index 0
+        @type results: tuple, with the output string in index 1
 
         @returns: None
         """
@@ -133,15 +137,11 @@ class WorkerThread(threading.Thread):
 
         Purpose: This overwrites threading.Thread's run() method. It is called
                | by doing WorkerThread.start(). The overaching goal is to
-               | decide if we are running against a single IP address, or
-               | against a list of IP's. If we are doing the latter, we need
-               | to start a multiprocessing pool, and run the run_jaide method
-               | for each IP address asynchronously.
+               | open a multiprocessing pool and execute the run_jaide()
+               | function against each IP supplied to us.
                |
-               | The script is executed, either via write_to_queue() directly
-               | for a single IP address, or mp_pool.apply_async() with a
-               | callback to write_to_queue() for a list of IP addresses. Once
-               | we have executed the script, we check the write_to_file
+               | We callback to write_to_queue() for a list of IP addresses.
+               | Once we have executed the script, we check the write_to_file
                | parameter to see if we need to output to a file.
 
         @returns: None
@@ -149,7 +149,7 @@ class WorkerThread(threading.Thread):
         # build the list of IPs
         iplist = [ip for ip in clean_lines(self.ip)]
         for ip in iplist:
-            # TODO: set back to mp_pool before finishing release.
+            # TODO: set back to mp_pool before finishing release. This is only set as is to receive errors.
             self.write_to_queue(run_jaide(ip.strip(), self.username,
                                           self.password, self.command,
                                           self.sess_timeout, self.argsToPass,
@@ -166,10 +166,9 @@ class WorkerThread(threading.Thread):
         self.mp_pool.close()
         self.mp_pool.join()
 
-        # TODO: clean up write_to_file similar to CLI.
         if self.write_to_file:
             # Just dumping all output to a single file.
-            if self.wtf_style == "s":
+            if self.wtf_style in ["s", "single"]:
                 try:
                     out_file = open(self.write_to_file, "a+b")
                 except IOError as e:
@@ -181,7 +180,7 @@ class WorkerThread(threading.Thread):
                     self.stdout.put("\nSuccessfully appended output to: "
                                     "%s\n" % self.write_to_file)
             # Dump output to one file for each IP touched.
-            elif self.wtf_style == "m":
+            elif self.wtf_style in ["m", 'multiple']:
                 temp_output = ""
                 while not self.wtfQueue.empty():
                     temp_output += self.wtfQueue.get()
@@ -257,14 +256,13 @@ def run_jaide(ip, username, password, function, sess_timeout, argsToPass,
                   | the class jaidegui.gui.__init__() method.
     @type function: function
     @param sess_timeout: The session timeout value in seconds for the
-                       | Jaide object session. The default value is set to
-                       | 300 seconds.
+                       | Jaide object session.
     @type sess_timeout: int
     @param argsToPass: The list of all the arguments that need to be passed
                      | through run_jaide() to jaide_tool.open_connection().
     @type argsToPass: list
     @param conn_timeout: the connection timeout to use when initally
-                       | connecting to the device. Defaults to 5 seconds.
+                       | connecting to the device.
     @type conn_timeout: int
     @param port: the port number on which to connect to the device.
     @type port: int
