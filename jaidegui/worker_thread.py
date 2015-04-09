@@ -3,7 +3,7 @@
 Purpose: This class takes command and a queue during construction, runs the
 command with the run_jaide() method, either in a multiple processing pool for
 multiple devices, or in one call to run_jaide() if we are running against a
-single device. Any output is written to the jaide_gui.outputArea and
+single device. Any output is written to the jaidegui.gui.outputArea and
 potentially also to an output file, if the user specified so. It also provides
 functionality for ending the subprocess before completion.
 
@@ -20,7 +20,6 @@ be found at the github page here:
 import threading
 import Queue
 import multiprocessing
-import os
 from jaide import wrap
 from jaide.color_utils import strip_color
 from jaide.utils import clean_lines
@@ -57,15 +56,15 @@ class WorkerThread(threading.Thread):
         @param command: The name of the function within jaide.py that we will
                       | be executing to accomplish the goal of the user.
                       | An example of this being deciphered and used is within
-                      | the class jaide_gui.__init__() method.
+                      | the class jaidegui.gui.__init__() method.
         @type command: function
         @param stdout: A queue where all output will be put, the
-                           | write_to_queue() method is used as a callback
-                           | function for the run_jaide() method, so that any
-                           | results from run_jaide() are writted to the
-                           | stdout. The stdout is actively watched
-                           | by the jaide_gui.__getoutput() method for printing
-                           | output to the user.
+                     | write_to_queue() method is used as a callback
+                     | function for the run_jaide() method, so that any
+                     | results from run_jaide() are written to
+                     | stdout. stdout is actively watched
+                     | by the jaidegui.gui.__getoutput() method for printing
+                     | output to the user.
         @type stdout: Queue.Queue()
         @param ip: The IP string can be one of three things: A single IP
                  | address, a comma separated list of IPs, or a filepath
@@ -79,8 +78,8 @@ class WorkerThread(threading.Thread):
         @param write_to_file: Either an empty string (meaning we're not writing
                             | to a file), or a filepath pointing to the desired
                             | output file for the script output.
-                            | jaide_gui.run() will determine if we're writing
-                            | to a file or not.
+                            | jaidegui.gui.run() will determine if we're
+                            | writing to a file or not.
         @type write_to_file: str
 
         @returns: None
@@ -122,7 +121,7 @@ class WorkerThread(threading.Thread):
 
         @returns: None
         """
-        # jaide_cli.open_connection returns a tuple, with the second index
+        # jaide.wrap.open_connection returns a tuple, with the second index
         # being the output, but we strip the ANSI color codes.
         results = strip_color(results[1])
         self.stdout.put(results)
@@ -179,8 +178,8 @@ class WorkerThread(threading.Thread):
                 else:
                     while not self.wtfQueue.empty():
                         out_file.write(self.wtfQueue.get())
-                    self.write_to_queue(("\nSuccessfully appended output to: "
-                                         "%s\n" % self.write_to_file), "")
+                    self.stdout.put("\nSuccessfully appended output to: "
+                                    "%s\n" % self.write_to_file)
             # Dump output to one file for each IP touched.
             elif self.wtf_style == "m":
                 temp_output = ""
@@ -191,8 +190,8 @@ class WorkerThread(threading.Thread):
                     # get each of the IP/hostnames we touched
                     ip = temp_output[x].split('Results from device: ')[1].split('\n')[0].strip()
                     # inject the ip into the front of the filename
-                    filepath = path.join(path.split(self.write_to_file)[0], ip +
-                                         "_" +
+                    filepath = path.join(path.split(self.write_to_file)[0],
+                                         ip + "_" +
                                          path.split(self.write_to_file)[1])
                     try:
                         out_file = open(filepath, 'a+b')
@@ -255,7 +254,7 @@ def run_jaide(ip, username, password, function, sess_timeout, argsToPass,
     @param function: The name of the function within jaide_tool.py that we
                   | will be executing to accomplish the goal of the user.
                   | An example of this being deciphered and used is within
-                  | the class jaide_gui.__init__() method.
+                  | the class jaidegui.gui.__init__() method.
     @type function: function
     @param sess_timeout: The session timeout value in seconds for the
                        | Jaide object session. The default value is set to

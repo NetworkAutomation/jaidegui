@@ -7,5 +7,9 @@
 # ignore pypi, setuptools, etc
 jaidegui.egg-info/*
 .pypirc
+build/
+dist/
+.eggs/
+
 # mkdocs builds
 site/

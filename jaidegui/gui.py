@@ -23,7 +23,6 @@ import sys
 import base64
 import time
 # ## The following imports are modules that we have written.
-from jaide import jaide_cli
 from jaide import wrap
 from jaide.utils import clean_lines
 # the jgui_widgets module extends Tkinter widgets for use within Jaide GUI
@@ -541,6 +540,8 @@ class JaideGUI(tk.Tk):
             # set the args to pass to the final function based on their choice.
             argsToPass = args_translation[self.option_value.get()]
 
+            # only pass the value of the write_to_file entry if wtf is checked.
+            write_to_file = self.wtf_entry.get() if self.wtf_checkbox.get() else ""
             # Create the WorkerThread class to run the Jaide functions.
             self.thread = WorkerThread(
                 argsToPass=argsToPass,
@@ -552,7 +553,7 @@ class JaideGUI(tk.Tk):
                 ip=self.ip_entry.get(),
                 username=username,
                 password=self.password_entry.get().strip(),
-                write_to_file=self.wtf_entry.get(),
+                write_to_file=write_to_file,
                 wtf_style=self.wtf_radiobuttons.get(),
             )
             self.thread.daemon = True
