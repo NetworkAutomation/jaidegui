@@ -9,7 +9,7 @@ The other manner is by using the command line to follow the [pip installation in
 
 | Command | Description |  
 | ------- | ----------- |  
-| Compare | Run a 'show pipe compare' for a list of set commands. **[1](#notes)** |  
+| Show &#124; Compare | Run a 'show &#124; compare' for a list of set commands. **[1](#notes)** |  
 | Device Info | Get basic device information, such as version, model, hostname, serial number, and uptime. |  
 | Diff Config | Compare the configuration differences between two devices. |  
 | Health Check | Get alarm, CPU, RAM, and temperature status. |  
