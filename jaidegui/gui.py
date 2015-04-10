@@ -95,26 +95,28 @@ class JaideGUI(tk.Tk):
         }
         # Maps optionMenu choice to help text.
         self.help_conversion = {
+            "Show | Compare": "Quick Help: Run a 'show | compare' in Junos against a given list of set commands. " +
+                              "The command(s) can be a single command, a comma separated list, or a filepath of many commands.",
             "Device Info": "Quick Help: Device Info pulls some baseline information from the device(s), including " +
-                        "Hostname, Model, Junos Version, and Chassis Serial Number.",
+                           "Hostname, Model, Junos Version, and Chassis Serial Number.",
             "Diff Config": "Quick Help: Compare the configuration between two devices. Specify the second IP/hostname," +
-                        " and choose whether to do set mode or stanza mode.",
+                           " and choose whether to do set mode or stanza mode.",
             "Health Check": "Quick Help: Health Check runs multiple commands to get routing-engine CPU/memory info, " +
-                        "busy processes, temperatures, and alarms. The output will likely show the mgd process using " +
-                        "high CPU, this is normal due to the execution of the script logging in and running the commands.",
+                            "busy processes, temperatures, and alarms. The output will likely show the mgd process using " +
+                            "high CPU, this is normal due to the execution of the script logging in and running the commands.",
             "Interface Errors": "Quick Help: Interface Errors will tell you of any input or output errors on all interfaces.",
             "Operational Command(s)": "Quick Help: Run one or more operational command(s) against the device(s). This can " +
-                        "be any non-interactive command(s) that can be run from operational mode. This includes show, " +
-                        "request, traceroute, op scripts, etc.",
+                                      "be any non-interactive command(s) that can be run from operational mode. This includes show, " +
+                                      "request, traceroute, op scripts, etc.",
             "SCP Files": "Quick Help: SCP file(s) or folder(s) to or from one or more devices. Specify a source and destination " +
-                        "file or folder. If Pulling, the source is the remote file/folder, and the destination is the local " +
-                        "folder you are putting them. If Pushing, the source is the local file/folder, and the destination would" +
-                        " the folder to put them on the remote device. Note, the '~' home directory link can not be used!",
+                         "file or folder. If Pulling, the source is the remote file/folder, and the destination is the local " +
+                         "folder you are putting them. If Pushing, the source is the local file/folder, and the destination would" +
+                         " the folder to put them on the remote device. Note, the '~' home directory link can not be used!",
             "Set Command(s)": "Quick Help: A single or multiple set commands that will be sent and committed to the device(s). " +
-                        "There are additional optional commit modifiers, which can be used to do several different things. " +
-                        "Much more information can be found in the help files.",
+                              "There are additional optional commit modifiers, which can be used to do several different things. " +
+                              "Much more information can be found in the help files.",
             "Shell Command(s)": "Quick Help: Send one or more shell commands to the device(s). Be wary when sending shell " +
-                        "commands, you can make instant changes or potentially harm the networking device. Care should be taken."
+                                "commands, you can make instant changes or potentially harm the networking device. Care should be taken."
         }
 
         # stdout_queue is where the WorkerThread class will dump output to.
