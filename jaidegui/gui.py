@@ -14,41 +14,32 @@ For more information on the underlying jaide utility, visit:
 
     https://github.com/NetworkAutomation/jaide
 """
-# ## Processing and queuing
+# Standard Imports
 import Queue
 # In terms of JGUI, we use multiprocessing to enable freeze_support.
-# The worker_thread subpackage uses multiprocessing further to run
-# concurrent instances of the Jaide script.
 import multiprocessing as mp
-# ## Basic functions and manipulation.
 import webbrowser as webb
 import re
 import os
 import sys
 import base64
 import time
-# ## The following imports are modules that we have written.
-from jaide import wrap
-from jaide.utils import clean_lines
-# the jgui_widgets module extends Tkinter widgets for use within Jaide GUI
+# Intra-jaidegui imports
 from jgui_widgets import JaideEntry, JaideCheckbox
 from jgui_widgets import AutoScrollbar, JaideRadiobutton
 from worker_thread import WorkerThread
 from module_locator import module_path
-try:
-    # ## Tkinter related imports.
-    import Tkinter as tk  # Tkinter is the underlying gui framework.
-    import tkFileDialog
-    import tkMessageBox  # to prompt users during input validation errors
-    import ttk  # Used for separators between frames of the UI.
-    # Pmw is the extended menuwidget option giving us the ability
-    # to call a function when a option is chosen from the menu.
-    from Pmw import OptionMenu as OM
-except ImportError as e:
-    print ("Failed to import one or more packages! Non-standard packages for "
-           "the GUI include:\nPMW\t\thttp://pmw.sourceforge.net/\n\n"
-           "Script Error:\n")
-    raise e
+# The rest are Non-standard imports
+from jaide import wrap
+from jaide.utils import clean_lines
+# Tkinter related imports.
+import Tkinter as tk  # Tkinter is the underlying gui framework.
+import tkFileDialog
+import tkMessageBox
+import ttk  # Used for separators between frames of the UI.
+# Pmw is the extended menuwidget option giving us the ability
+# to call a function when a option is chosen from the menu.
+from Pmw import OptionMenu as OM
 
 
 # TODO: add in `compare` command to GUI
