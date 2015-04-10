@@ -73,14 +73,15 @@ class JaideGUI(tk.Tk):
         # ## Argument and option lists for user input
         # arguments that require extra input
         self.yes_options = ["Operational Command(s)", "Set Command(s)",
-                            "Shell Command(s)", "SCP Files", "Diff Config"]
+                            "Shell Command(s)", "SCP Files", "Diff Config",
+                            "Show | Compare"]
         # arguments that don't require extra input
         self.no_options = ["Interface Errors", "Health Check", "Device Info"]
         # List of argument options
         self.options_list = ["Diff Config", "Operational Command(s)",
-                             "Set Command(s)", "Shell Command(s)", "SCP Files",
-                             "------", "Device Info", "Health Check",
-                             "Interface Errors"]
+                             "SCP Files", "Set Command(s)", "Shell Command(s)",
+                             "Show | Compare", "------", "Device Info",
+                             "Health Check", "Interface Errors"]
 
         # Maps optionMenu choice to jaide_cli function.
         self.option_conversion = {
@@ -91,7 +92,8 @@ class JaideGUI(tk.Tk):
             "Operational Command(s)": wrap.command,
             "SCP Files": wrap.push,
             "Set Command(s)": wrap.commit,
-            "Shell Command(s)": wrap.shell
+            "Shell Command(s)": wrap.shell,
+            "Show | Compare": wrap.compare
         }
         # Maps optionMenu choice to help text.
         self.help_conversion = {
@@ -100,7 +102,8 @@ class JaideGUI(tk.Tk):
             "Device Info": "Quick Help: Device Info pulls some baseline information from the device(s), including " +
                            "Hostname, Model, Junos Version, and Chassis Serial Number.",
             "Diff Config": "Quick Help: Compare the configuration between two devices. Specify the second IP/hostname," +
-                           " and choose whether to do set mode or stanza mode.",
+                           " and choose whether to do set mode or stanza mode. If you are not familiar with the format of the output,"
+                           " take a look at 'git diff output' on google.",
             "Health Check": "Quick Help: Health Check runs multiple commands to get routing-engine CPU/memory info, " +
                             "busy processes, temperatures, and alarms. The output will likely show the mgd process using " +
                             "high CPU, this is normal due to the execution of the script logging in and running the commands.",
@@ -490,7 +493,7 @@ class JaideGUI(tk.Tk):
         if self.input_validation():
             # puts cursor at end of text field
             self.output_area.mark_set(tk.INSERT, tk.END)
-            self.write_to_output_area("****** Process Starting ******\n")
+            self.write_to_output_area("****** Starting Jaide ******\n")
 
             # Gets username/ip from appropriate StringVars
             username = self.username_entry.get().strip()
@@ -520,20 +523,21 @@ class JaideGUI(tk.Tk):
                 "Operational Command(s)": [self.option_entry.get().strip(),
                                            out_fmt, False],
                 "Device Info": [],
-                "Diff Config": [self.option_entry.get(),
+                "Diff Config": [self.option_entry.get().strip(),
                                 self.diff_config_mode.get().lower()],
                 "Health Check": [],
                 "Interface Errors": [],
-                "Set Command(s)": [self.option_entry.get(),
+                "Set Command(s)": [self.option_entry.get().strip(),
                                    self.commit_check_button.get(),
                                    self.commit_synch.get(),
                                    comment,
                                    confirmed,
                                    at_time,
                                    self.commit_blank.get()],
-                "SCP Files": [self.option_entry.get(),
+                "SCP Files": [self.option_entry.get().strip(),
                               self.scp_dest_entry.get(), False, multi],
-                "Shell Command(s)": [self.option_entry.get().strip()]
+                "Shell Command(s)": [self.option_entry.get().strip()],
+                "Show | Compare": [self.option_entry.get().strip()]
             }
 
             # set the args to pass to the final function based on their choice.
@@ -590,7 +594,7 @@ class JaideGUI(tk.Tk):
             self.clear_button.configure(state="normal")
             self.stop_button.configure(state="disabled")
             self.save_button.configure(state="normal")
-            self.write_to_output_area("****** Process Completed ******\n")
+            self.write_to_output_area("****** Jaide Command Completed ******\n")
             self.thread.join()
             return
         # recursively call this function every 100ms, writing any new output.
@@ -814,6 +818,7 @@ class JaideGUI(tk.Tk):
                                       filepath + " Error: \n" + str(e))
         else:
             try:
+                # TODO: change templates to be in JSON format.
                 # Read the template file and set the fields accordingly.
                 for line in input_file.readlines():
                     line = line.split(':~:')
@@ -844,7 +849,7 @@ class JaideGUI(tk.Tk):
 
             @returns: None
         """
-        self.write_to_output_area("\n****** Attempting to stop process ******")
+        self.write_to_output_area("****** Attempting to Stop Jaide ******")
         self.thread.kill_proc()
 
     def opt_select(self, opt):
@@ -920,6 +925,8 @@ class JaideGUI(tk.Tk):
             elif opt == "Diff Config":
                 self.diff_config_menu.grid(column=3, row=0,
                                            sticky="NW", padx=2)
+            elif opt == "Show | Compare":
+                self.set_list_button.grid(column=3, row=0, sticky="NW", padx=2)
         else:
             # No option
             self.spacer_label.grid(column=1, columnspan=2, row=1, sticky="NW")
