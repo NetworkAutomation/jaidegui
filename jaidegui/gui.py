@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ The GUI wrapper for the jaide CLI utility.
 
 This python file is used to spawn the GUI that wraps around jaide,
@@ -24,6 +25,11 @@ import os
 import sys
 import base64
 import time
+# Tkinter related imports.
+import Tkinter as tk  # Tkinter is the underlying gui framework.
+import tkFileDialog
+import tkMessageBox
+import ttk  # Used for separators between frames of the UI.
 # Intra-jaidegui imports
 from jgui_widgets import JaideEntry, JaideCheckbox
 from jgui_widgets import AutoScrollbar, JaideRadiobutton
@@ -32,11 +38,6 @@ from module_locator import module_path
 # The rest are Non-standard imports
 from jaide import wrap
 from jaide.utils import clean_lines
-# Tkinter related imports.
-import Tkinter as tk  # Tkinter is the underlying gui framework.
-import tkFileDialog
-import tkMessageBox
-import ttk  # Used for separators between frames of the UI.
 # Pmw is the extended menuwidget option giving us the ability
 # to call a function when a option is chosen from the menu.
 from Pmw import OptionMenu as OM
@@ -166,8 +167,7 @@ class JaideGUI(tk.Tk):
 
         # Create the Help menu
         self.menu_help.add_command(label="About", command=self.show_about)
-        self.menu_help.add_command(label="Help Text", command=self.show_help)
-        self.menu_help.add_command(label="Examples", command=self.show_examples)
+        self.menu_help.add_command(label="Go to Docs", command=self.show_help)
 
         # Add the menubar in.
         self.config(menu=self.menubar)
@@ -695,18 +695,8 @@ class JaideGUI(tk.Tk):
         Purpose: This is called when the user selects the 'Help' menubar
                | option. It opens the readthedocs.org page.
         """
-        # TODO: READTHEDOCS LINK INSTEAD
         try:
-            webb.open('https://github.com/NetworkAutomation/jaidegui')
-        except webb.Error:
-            pass
-
-    def show_examples(self):
-        """ Open the example documentation page. """
-        # TODO: READTHEDOCS link instead.
-        try:
-            webb.open('https://github.com/NetworkAutomation/'
-                      'jaide/tree/master/examples')
+            webb.open('http://jaidegui.readthedocs.org/')
         except webb.Error:
             pass
 
