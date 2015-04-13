@@ -16,7 +16,5 @@ Contributors: [Geoff Rhodes](https://github.com/geoffrhodes) and [Nathan Printz]
 * [Jaide vs the CLI tool vs the GUI](which-is-for-me.md)
 * [Installation and Requirements](installation.md)
 * [Basic Usage](usage.md)
-* Jaide GUI Examples  
-	* [Working with the Jaide GUI](examples/examples.md)
 * [About Us](about.md)
 * [Version History](version-history.md)
