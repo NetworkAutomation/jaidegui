@@ -52,7 +52,7 @@ The `jaidegui` package is a separate Github repository, for ease of change contr
 
 ## Installation  
 
-### Compiled Version  
+### Compiled Versions  
 
 The easiest way to install the Jaide GUI is to download the [compiled version](http://github.com/NetworkAutomation/jaidegui/releases/latest) for your OS (Mac or Windows) and simply run the application. There are no other requirements necessary when using this method, as everything is packaged in with our executable.   
 
