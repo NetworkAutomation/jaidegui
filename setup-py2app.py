@@ -11,7 +11,7 @@ Usage:
 
 from setuptools import setup
 
-APP = ['jaidegui/gui.py']
+APP = ['jaidegui/Jaide GUI.py']
 DATA_FILES = []
 OPTIONS = {'argv_emulation': True}
 
