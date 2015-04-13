@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ This is used as a workaround to getting the location of the exe file when
 running the windows compiled version.
 

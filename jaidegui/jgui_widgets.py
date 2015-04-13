@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ This Class is part of the jaide/jgui project.
 
 It is free software for use in manipulating junos devices. More information

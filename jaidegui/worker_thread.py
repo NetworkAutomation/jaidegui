@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ WorkerThread Class.
 
 Purpose: This class takes command and a queue during construction, runs the
@@ -150,19 +151,19 @@ class WorkerThread(threading.Thread):
         iplist = [ip for ip in clean_lines(self.ip)]
         for ip in iplist:
             # TODO: set back to mp_pool before finishing release. This is only set as is to receive errors.
-            self.write_to_queue(run_jaide(ip.strip(), self.username,
-                                          self.password, self.command,
-                                          self.sess_timeout, self.argsToPass,
-                                          self.conn_timeout, self.port))
-            # self.mp_pool.apply_async(run_jaide, args=(ip.strip(),
-            #                                           self.username,
-            #                                           self.password,
-            #                                           self.command,
-            #                                           self.sess_timeout,
-            #                                           self.argsToPass,
-            #                                           self.conn_timeout,
-            #                                           self.port),
-            #                          callback=self.write_to_queue)
+            # self.write_to_queue(run_jaide(ip.strip(), self.username,
+            #                               self.password, self.command,
+            #                               self.sess_timeout, self.argsToPass,
+            #                               self.conn_timeout, self.port))
+            self.mp_pool.apply_async(run_jaide, args=(ip.strip(),
+                                                      self.username,
+                                                      self.password,
+                                                      self.command,
+                                                      self.sess_timeout,
+                                                      self.argsToPass,
+                                                      self.conn_timeout,
+                                                      self.port),
+                                     callback=self.write_to_queue)
         self.mp_pool.close()
         self.mp_pool.join()
 
@@ -227,7 +228,7 @@ class WorkerThread(threading.Thread):
 
         Purpose: Provide a way to kill the subprocess from outside of the
                | thread. Terminating the pool leaves nothing left blocking
-               |self.run() so it completes and exits normally.
+               | self.run() so it completes and exits normally.
 
         @returns: None
         """
