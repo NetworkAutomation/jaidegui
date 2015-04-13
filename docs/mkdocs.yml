@@ -4,12 +4,10 @@ site_description: Jaide GUI for manipulating Junos Devices
 repo_url: https://github.com/NetworkAutomation/jaidegui
 pages:
     - ['index.md', 'Home']
-    - ['about.md', 'About Us']
     - ['description.md', 'Jaide Basic Description']
     - ['which-is-for-me.md', 'Jaide vs the CLI tool vs the GUI']
     - ['installation.md', 'Installation and Requirements']
     - ['usage.md', 'Basic Usage']
-    - ['version-history.md', 'Version History']
     # - ['examples/cli/authentication.md', 'CLI Examples', 'Authenticating and Connecting']
     # - ['examples/cli/get-device-info.md', 'CLI Examples', 'Basic Device Information']
     # - ['examples/cli/checking-interface-errors.md', 'CLI Examples', 'Checking Interface Errors']
@@ -25,4 +23,6 @@ pages:
     # - ['examples/cli/writing-output-to-file.md', 'CLI Examples', 'Writing Output to File(s)']
     # - ['examples/lib/examples.md', 'Jaide Class Examples', 'Working with the Jaide class']
     # - ['api/api.md', 'API Reference']
+    - ['about.md', 'About Us']
+    - ['version-history.md', 'Version History']
 theme: readthedocs
