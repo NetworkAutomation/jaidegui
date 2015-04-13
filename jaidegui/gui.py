@@ -43,8 +43,6 @@ from jaide.utils import clean_lines
 from Pmw import OptionMenu as OM
 
 
-# TODO: add in `compare` command to GUI
-# TODO: scp in gui always flags multi?
 # TODO: make Script output non-editable, but still selectable for copying.  - Doesn't seem feasible without completely re-writing textArea widget.
 # TODO: add headers to the sections of the GUI / add coloring or styling.  - Attempted, couldn't get menuoption to work, or checkboxes on mac.
 # TODO: make entry fields fill their given space on the x-axis to give more space for filepaths?
@@ -829,7 +827,6 @@ class JaideGUI(tk.Tk):
             finally:
                 input_file.close()
 
-    # TODO: Doesn't appear to be working sometimes (known for scp'ing from multiple devices.)
     def stop_script(self):
         """ Kill the active running script.
 
