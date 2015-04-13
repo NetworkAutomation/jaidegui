@@ -1,5 +1,5 @@
 Junos Aide (Jaide) GUI  
-===================================  
+======================  
 
 ## Quick Info  
 Contributors: [Geoff Rhodes](https://github.com/geoffrhodes) and [Nathan Printz](https://github.com/nprintz)  
@@ -9,8 +9,14 @@ Contributors: [Geoff Rhodes](https://github.com/geoffrhodes) and [Nathan Printz]
 [Read The Docs](http://jaidegui.readthedocs.org)  
 [OSX/Windows Compiled Versions](https://github.com/NetworkAutomation/jaidegui/releases/latest)  
 
-## About:  
+## Table of Contents  
 
-More information about us can be found on the [about page](about.md).  
-
-# TODO: add TOC
+* [Home](index.md)
+* [Jaide Basic Description](description.md)
+* [Jaide vs the CLI tool vs the GUI](which-is-for-me.md)
+* [Installation and Requirements](installation.md)
+* [Basic Usage](usage.md)
+* Jaide GUI Examples  
+	* [Working with the Jaide GUI](examples/examples.md)
+* [About Us](about.md)
+* [Version History](version-history.md)

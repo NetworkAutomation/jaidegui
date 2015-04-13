@@ -45,5 +45,5 @@ Any of the following keyboard shortcuts can be used to manipulate the GUI:
 | Ctrl+Q | Quit Jaide GUI | Exits the program |  
 
 ### Notes  
-* 1) There are multiple ways to specify these pieces of information (Hostnames/IPs, op commands, shell commands, set commands). It can be a single instance, multiple in a quoted comma-separated list, or a filepath pointing to a file with one entry on each line. More information is in their respective detailed docs.  
+* 1) There are multiple ways to specify these pieces of information (Hostnames/IPs, op commands, shell commands, set commands). It can be a single command or IP, multiple in a comma-separated list, or a filepath pointing to a file with one entry on each line.  
 * 2) Pipes are very powerful, and should be learned for advanced command usage in [Junos natively](http://www.juniper.net/techpubs/en_US/junos14.2/topics/concept/junos-cli-pipe-filter-functions-overview.html). Xpath filtering is an added feature of Jaide, and can be learned of in our [operational command guide](http://jaide.readthedocs.org/).  
