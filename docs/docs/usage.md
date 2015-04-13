@@ -1,9 +1,9 @@
 Basic Jaide GUI Usage  
 =====================  
 
-There are two ways to use the Jaide GUI. The easiest is through the compiled applications for [Windows](https://github.com/geoffrhodes/jaide-windows-compile) and [Mac](https://github.com/geoffrhodes/jaide-osx-compile). By using the compiled application, you don't need to worry about any python requirements or ever touch the command line. Simply load the application and you're ready to start.  
+There are two ways to use the Jaide GUI. The easiest is through the [compiled applications](https://github.com/NetworkAutomation/jaidegui/releases/latest) for Windows and Mac. By using the compiled application, you don't need to worry about any python requirements or ever touch the command line. Simply load the application and you're ready to start.  
 
-The other manner is by using the command line to follow the [pip installation instructions](TODO: PIP INSTALL LINK), and then use the `jaidegui` command in any terminal window.
+The other manner is by using the command line to follow the [pip installation instructions](installation.md), and then use the `jaidegui` command in any terminal window.
 
 ## Jaide commands  
 
@@ -46,4 +46,4 @@ Any of the following keyboard shortcuts can be used to manipulate the GUI:
 
 ### Notes  
 * 1) There are multiple ways to specify these pieces of information (Hostnames/IPs, op commands, shell commands, set commands). It can be a single instance, multiple in a quoted comma-separated list, or a filepath pointing to a file with one entry on each line. More information is in their respective detailed docs.  
-* 2) Pipes are very powerful, and should be learned for advanced command usage in [Junos natively](http://www.juniper.net/techpubs/en_US/junos14.2/topics/concept/junos-cli-pipe-filter-functions-overview.html). Xpath filtering is an added feature of Jaide, and can be learned of in our [operational command guide](#TODO: operational command guide link).  
+* 2) Pipes are very powerful, and should be learned for advanced command usage in [Junos natively](http://www.juniper.net/techpubs/en_US/junos14.2/topics/concept/junos-cli-pipe-filter-functions-overview.html). Xpath filtering is an added feature of Jaide, and can be learned of in our [operational command guide](http://jaide.readthedocs.org/).  
