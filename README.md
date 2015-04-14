@@ -1,6 +1,8 @@
 Junos Aide (Jaide) and JGUI  
 ===========================  
 
+[![Documentation Status](https://readthedocs.org/projects/jaidegui/badge/?version=latest)](https://readthedocs.org/projects/jaidegui/?badge=latest)
+
 ## About  
 Contributors: [Geoff Rhodes](https://github.com/geoffrhodes) and [Nathan Printz](https://github.com/nprintz)  
 [OSX/Windows Compiled Versions](https://github.com/NetworkAutomation/jaidegui/releases/latest)  
